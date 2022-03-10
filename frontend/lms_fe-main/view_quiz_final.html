@@ -1,0 +1,592 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Quiz Edit Page</title>
+	<script type="text/javascript" src="navbar.js" async></script>
+	<style>
+	input[type="radio"] {
+  margin-right: 10px;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}	
+</style>
+
+</head>
+
+<body style=" background-image: url('Images/5591276.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+	
+	<div id="page-wrap-nav">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <!-- company brand with a logo image -->
+        <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                <img src="Images/printer.png" width="50" height="50" alt="logo">
+        </a>
+                    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" >
+                <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown" id="lengthadmintrainer">
+                
+            </li>
+
+            <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                
+            </li>
+
+              
+              
+            </ul>
+     
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                  <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+               
+                </div>
+              </li>
+            </ul>
+
+        </div>
+        <!-- the rest of buttons -->
+    </nav> 
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div id="page-wrap"> 
+
+	
+		
+		<div class="container-fluid">	
+			<div class="row">
+				<div class="col">
+					
+				    <div id = "title"></div>
+					<div id = "header"></div>
+					<br>
+					<div id = "create_question"></div>
+					<br>
+					<div id = "quiz_details"></div>
+					Total points: <span id = "totalmarks"></span>
+				</div>
+			</div>
+		</div>		
+		<hr>
+		 <div class="container-fluid">
+            <div class="table-responsive"> <!-- this is the code to make the table can scroll if screen too small-->
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Question</th>
+                        <th scope="col">Option 1</th>
+                        <th scope="col">Option 2</th>
+						<th scope="col">Option 3</th>
+						<th scope="col">Option 4</th>
+						<th scope="col">Option 5</th>
+						<th scope="col">Answer</th>
+						<th scope="col">Points</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="my_class_sections">
+                     
+                    </tbody>
+                </table>
+            </div>
+        </div>	
+		<div id="myModal" class="modal">
+		 <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id = "content"></div>
+  </div>
+		</div>
+		
+		
+	<hr>
+	
+    
+    <!-- Main Body -->
+	
+</body>
+
+
+<script>
+
+var userid= localStorage.getItem('user_ID');
+
+
+var sub_url = window.location.href
+sub_url.indexOf("?")
+var course_class_section_id_url_back = sub_url.slice(sub_url.indexOf("?")+1)
+var myArr = course_class_section_id_url_back.split("_"); 
+var user_name= localStorage.getItem('username');
+document.getElementById("navbarDropdown1").innerText = user_name;
+section_ID = myArr[0];
+class_ID = myArr[1];
+trainer_ID = userid;
+course_ID = myArr[2];
+count = 0;
+points = 0;
+counting_record = -1;
+grade_type = "";
+
+function display_title(){
+	if (section_ID == -1){
+		document.getElementById("title").innerHTML = '<h3 class="title">Final Quiz Editing Page';
+	} else {
+		 var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								var obj = JSON.parse(this.responseText);
+								document.getElementById("title").innerHTML = '<h3 class="title">' + obj.data.section.title + ' Quiz Editing Page';
+								;
+							}					
+						}
+				
+				var final_url = "https://section-container-7ii64z76zq-uc.a.run.app/section/" + section_ID;
+				
+				
+
+				request.open("GET", final_url, true);
+
+				request.send();
+	}
+}
+
+display_title();
+
+function check_eligible(){
+	var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								var obj = JSON.parse(this.responseText);
+								status = obj.data.class.class_status;
+								if (status != "NEW"){
+									 var ele = document.getElementsByTagName("button");
+									if (ele.length > 0) {
+										for (i = 0; i < ele.length; i++) {
+											ele[i].style.display = "none";
+										}
+									}
+									document.getElementById("create_question").innerHTML = "CLASS IS HAS PASS OPEN STAGE - VIEW ONLY MODE"
+								} 
+							
+							}
+						
+						}
+				
+				var final_url = "https://class-container-7ii64z76zq-uc.a.run.app/class?class_ID=" + class_ID + "&learner_ID=" + userid;
+				
+				
+
+				request.open("GET", final_url, true);
+
+				request.send();
+}
+
+
+
+
+function view_quiz(){
+				
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								var obj = JSON.parse(this.responseText);
+								
+								first_result = obj.data.quiz;
+								document.getElementById("quiz_details").innerHTML = "Duration: " + obj.data.quiz.duration + ' minutes  <button onclick="edit_duration('+ obj.data.quiz.quiz_ID + ')" data-toggle="modal" data-target="#pre_warning_delete" type="button" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Edit duration</button><br><br>Grading type: ' + obj.data.quiz.grading_type + "<br><br>";
+								result = obj.data.quiz.quiz_questions;
+								grade_type = obj.data.quiz.grading_type;
+								for (let i =0; i < result.length; i++){
+									if (result[i].option2 == null){
+									     result[i].option2 = "";
+									}
+									if (result[i].option3 == null){
+									     result[i].option3 = "";
+									}
+									if (result[i].option4 == null){
+									     result[i].option4 = "";
+									}
+									if (result[i].option5 == null){
+									     result[i].option5 = "";
+									}
+									
+									document.getElementById("my_class_sections").innerHTML += '<div id = "try123"><tr> <td scope = "row">' + result[i].question + '</td><td scope = "row">' + result[i].option1 + '</td><td scope = "row">' + result[i].option2 + '</td><td scope = "row">' + result[i].option3 + '</td><td scope = "row">' + result[i].option4 + '</td><td scope = "row">' + result[i].option5 + '</td><td scope = "row">' + result[i].answer + '</td><td scope = "row">' + result[i].point+ '</td><td style="text-align:center;"><button onclick="delete_question(' + result[i].quiz_ID + ',' + result[i].quiz_question_ID+ ')" type="button" class="btn btn-secondary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px; padding">Delete Question</button><br> <button onclick="view_detailed_quiz(' + result[i].quiz_ID + ',' + result[i].quiz_question_ID+' )" data-toggle="modal" data-target="#pre_warning_delete" type="button" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Edit question</button></td></tr></div>'
+									points += result[i].point;
+									document.getElementById("totalmarks").innerHTML = points;
+									
+								}
+									document.getElementById("create_question").innerHTML = '<button type="button" class="btn btn-success" onclick = "create_quiz_ques('+ result[0].quiz_ID + ')">Create Quiz Question</button><button type="button" style= "margin-left: 50px;" class="btn btn-danger" onclick = "delete_quiz(' + result[0].quiz_ID + ')">Delete Quiz</button>';
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz?class_ID=" + class_ID + "&section_ID=" + section_ID;
+
+				request.open("GET", final_url, true);
+
+				request.send();
+			}
+			
+function view_detailed_quiz (quiz_id, quiz_question_ID){
+  modal.style.display = "block";
+  var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								var obj = JSON.parse(this.responseText);
+								result = obj.data.quiz_question;
+								if (result.option2 == null){
+									     result.option2 = "";
+									}
+									if (result.option3 == null){
+									     result.option3 = "";
+									}
+									if (result.option4 == null){
+									     result.option4 = "";
+									}
+									if (result.option5 == null){
+									     result.option5 = "";
+									}
+								document.getElementById("content").innerHTML = '<h3 class="title">Edit Quiz Question</h1><br>Question: <input type="text" value = "'+ result.question + '" id="question" name="question"><br><br>Option 1: <input type="text" value = "'+ result.option1 + '" id="option1" name="option1"><br><br>Option 2: <input type="text" value = "'+ result.option2 + '" id="option2" name="option2"><br><br>Option 3: <input type="text" value = "'+ result.option3 + '" id="option3" name="option3"><br><br>Option 4: <input type="text" value = "'+ result.option4 + '" id="option4" name="option4"><br><br>Option 5: <input type="text" value = "'+ result.option5 + '" id="option5" name="option5"><br><br>Answer: <input type="text" value = "'+ result.answer + '" id="answer" name="answer"><br><br>Point: <input type="text" value = "'+ result.point + '" id="point" name="point"><br><br><button onclick="edit_quiz('+ result.quiz_ID + ',' + result.quiz_question_ID+')" data-toggle="modal" data-target="#pre_warning_delete" type="button" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Edit question</button>'
+								;
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id + "/quiz_question/" + quiz_question_ID;
+				
+				
+
+				request.open("GET", final_url, true);
+
+				request.send();
+}
+
+function edit_duration(quiz_id){
+  modal.style.display = "block";
+  document.getElementById("content").innerHTML = '<h3 class="title">Edit Duration</h1><br>New duration: <input type="text" id="duration" name="duration"><br><br><button data-toggle="modal" data-target="#pre_warning_delete" type="button" onclick = "update_duration(' + quiz_id +')" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Submit</button>';
+}
+
+function update_duration(quiz_id){
+				duration = document.getElementById("duration").value;
+				
+				var data = {"duration": duration};
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("update success");	
+								location.reload();
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id;
+				
+				
+				
+				
+
+				request.open("Put", final_url, true);
+
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Content-Type', 'application/json');
+
+				request.send(JSON.stringify(data));
+				
+				
+			}
+
+function create_quiz_ques(quiz_id){
+	count += 1;
+	modal.style.display = "block";
+	document.getElementById("content").innerHTML = '<h3 class="title">Create Quiz Question</h1><br><div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value, '+ quiz_id + ')"' 
+															+ 'name="type_ques" id="type_ques"><option value = "1">MCQ</option>'
+															+ '<option value = "2">True/False</option></select></div><br><br>Question: <input type="text" id="question' + count + '" name="question"><br><br>Option 1: <input type="text" id="option1' + count + '" name="option1"><br><br>Option 2: <input type="text" id="option2' + count + '" name="option2"><br><br>Option 3: <input type="text" id="option3' + count + '" name="option3"><br><br>Option 4: <input type="text" id="option4' + count + '" name="option4"><br><br>Option 5: <input type="text" id="option5' + count + '" name="option5"><br><br>Answer: <input type="text" id="answer' + count + '" name="answer"><br><br>Point: <input type="text" id="point' + count + '" name="point"><br><br><button data-toggle="modal" data-target="#pre_warning_delete" type="button" onclick = "create_ques('+ quiz_id + ')" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Create question</button>';
+	
+ 
+}
+
+function generateData(menu, quiz_id){
+	if (menu == '1') {
+		create_quiz_ques(quiz_id);
+} else {
+		create_ques_mcq(quiz_id);
+}
+}
+
+function create_ques_mcq(quiz_id){
+	count += 1;
+	modal.style.display = "block";
+	document.getElementById("content").innerHTML = '<h3 class="title">Create Quiz Question</h1><br><div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value, '+ quiz_id + ')"' 
+															+ 'name="type_ques" id="type_ques"><option value = "1">MCQ</option>'
+															+ '<option value = "2" selected>True/False</option></select></div><br><br>Question: <input type="text" id="question' + count + '" name="question"><br><br>Option 1: <input type="text" id="option1' + count + '" name="option1" value = "true"><br><br>Option 2: <input type="text" id="option2' + count + '" name="option2" value = "false"><br><br>Answer: <input type="text" id="answer' + count + '" name="answer"><br><br>Point: <input type="text" id="point' + count + '" name="point"><br><br><button data-toggle="modal" data-target="#pre_warning_delete" type="button" onclick = "create_ques_TF('+ quiz_id + ')" class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Create question</button>';
+															
+			}
+
+function create_ques(quiz_id){
+	question = document.getElementById("question" + count).value;
+	option1 = document.getElementById("option1" + count ).value;
+	option2 = document.getElementById("option2" + count ).value;
+	option3 = document.getElementById("option3" + count).value;
+	option4 = document.getElementById("option4"+ count).value;
+	option5 = document.getElementById("option5" + count).value;
+	answer = document.getElementById("answer" + count).value;
+	point = document.getElementById("point" + count).value;
+	if (question == "" || option1 == "" || option2 == "" || answer == "" || point == ""){
+		alert("please fill up your empty fields");
+		} else {
+				point = parseInt(point);
+				if (option3 == "" && option4 == "" && option5 == ""){
+					var data = {"question": question, "option1": option1, "option2": option2, "answer": answer, "point": point};
+				}
+				else if (option4 == "" && option5 == ""){
+					var data = {"question": question, "option1": option1, "option2": option2, "option3": option3, "answer": answer, "point": point};
+				} else if (option5 == ""){
+					var data = {"question": question, "option1": option1, "option2": option2, "option3": option3, "option4": option4, "answer": answer, "point": point};
+				} 
+				else{
+					var data = {"question": question, "option1": option1, "option2": option2, "option3": option3, "option4": option4, "option5": option5, "answer": answer, "point": point};
+				}
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("create success");	
+								location.reload();
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id + "/quiz_question";
+				
+				
+				
+				
+
+				request.open("POST", final_url, true);
+
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Content-Type', 'application/json');
+
+				request.send(JSON.stringify(data));
+				}
+				}
+		
+		
+function create_ques_TF(quiz_id){
+	question = document.getElementById("question" + count).value;
+	option1 = document.getElementById("option1" + count ).value;
+	option2 = document.getElementById("option2" + count ).value;
+	answer = document.getElementById("answer" + count).value;
+	point = document.getElementById("point" + count).value;
+	if (question == "" || option1 == "" || option2 == "" || answer == "" || point == ""){
+		alert("please fill up your empty fields");
+		} else {
+				point = parseInt(point);
+				var data = {"question": question, "option1": option1, "option2": option2, "answer": answer, "point": point};
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("create success");	
+								location.reload();
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id + "/quiz_question";
+				
+				
+				
+				
+
+				request.open("POST", final_url, true);
+
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Content-Type', 'application/json');
+
+				request.send(JSON.stringify(data));
+				}
+				}
+
+
+function edit_quiz(quiz_id, quiz_question_ID){
+				if (confirm("Are you sure you want to edit the quiz?")){
+				question = document.getElementById("question").value;
+				option1 = document.getElementById("option1").value;
+				option2 = document.getElementById("option2").value;
+				option3 = document.getElementById("option3").value;
+				option4 = document.getElementById("option4").value;
+				option5 = document.getElementById("option5").value;
+				answer = document.getElementById("answer").value;
+				point = document.getElementById("point").value;
+				if (option3 == ""){
+				   option3 = null;
+				}
+				if (option4 == ""){
+				   option4 = null;
+				}
+				if (option5 == ""){
+				   option5 = null;
+				}
+				if (question == "" || option1 == "" || option2 == "" || answer == "" || point == ""){
+					alert("please fill up your empty fields, minimum 2 options");
+				} else {
+				point = parseInt(point);
+				
+				var data = {"question": question, "option1": option1, "option2": option2, "option3": option3, "option4": option4, "option5": option5, "answer": answer, "point": point};
+					
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("update success");	
+								location.reload();
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id + "/quiz_question/" + quiz_question_ID;
+				
+				
+				
+				
+
+				request.open("Put", final_url, true);
+
+				request.setRequestHeader('Access-Control-Allow-Origin', '*');
+				request.setRequestHeader('Content-Type', 'application/json');
+
+				request.send(JSON.stringify(data));
+				}
+				}
+			}
+			
+
+
+			
+function delete_question(quiz_id , quiz_question_ID){
+				if (confirm("Are you sure you want to delete this question?")){
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("delete success");	
+								location.reload();
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id + "/quiz_question/" + quiz_question_ID;
+				
+			
+
+				request.open("Delete", final_url, true);
+
+				request.send();
+				}
+			}
+			
+function delete_quiz(quiz_id){
+				if (confirm("Are you sure you want to delete this quiz?")){
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+								alert("delete success");	
+								if (grade_type == "graded"){
+									window.location.href = "view_course.html?courseid=" + course_ID + "&classid=" + class_ID;
+									} else {
+									window.location.href = "course_section.html?" + course_ID + "_" + class_ID + "_" + section_ID; 
+									}
+								
+							}					
+						}
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/" + quiz_id;
+				
+		
+
+				request.open("Delete", final_url, true);
+
+				request.send();
+				}
+			}
+
+view_quiz();
+
+
+var modal = document.getElementById("myModal");
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+check_eligible();
+
+var span = document.getElementsByClassName("close")[0];
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>

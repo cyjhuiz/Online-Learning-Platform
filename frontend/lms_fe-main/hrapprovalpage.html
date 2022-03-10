@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="navbar.js" async></script>
+   
+    <title>Applicant List</title>
+
+</head>
+
+<body>
+    <!-- nav bar -->
+    <div id="page-wrap-nav">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <!-- company brand with a logo image -->
+            <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                    <img src="Images/printer.png" width="50" height="50" alt="logo">
+            </a>
+                        
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div id= "navbarappend">
+
+                </div>
+                    <ul class="navbar-nav mr-auto" id='navbartarget' >
+                        <li class="nav-item active" >
+                            <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                        <li class="nav-item dropdown" id="lengthadmintrainer">
+                            
+                        </li>
+
+                        <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                            
+                        </li>
+
+                        
+                        
+                    
+                    
+                    </ul>
+                
+                    
+                    <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                        <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                        <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+                    
+                        </div>
+                    </li>
+                    </ul>
+
+            </div>
+            <!-- the rest of buttons -->
+        </nav> 
+    </div>
+
+    <!-- Main Body -->
+    <div id="page-wrap">
+
+     
+       
+        
+        <div class="container-fluid">
+            
+        </div>
+       
+    <div class="col-md-12">    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h3 class="title"><img src="Images/checklist.png" width="30" height="35">Enrolment Requests</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row" style="padding-left:20px;">
+                <h5 class="title"> Self-Enrolment Requests </h3>
+
+            </div>
+            <div class="table-responsive-lg"> <!-- this is the code to make the table can scroll if screen too small-->
+                <table class= "table">
+                    <thead class="thead-light" >
+                      <tr>
+                        <th scope="col">Learner</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Course</th>
+                       
+                        <th scope="col">Slots Left</th>
+                        <th scope="col">Enrol Start-End Date</th>
+                        <th scope="col">Course Start-End Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Instructor</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="all_enrolment">
+                        <td colspan="9" style="text-align: center;"><br><br><br><br><br> <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"> <span class="sr-only">Loading...</span> </div><br><br><br><br><br> </td>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="page-wrap">
+    <div class="col-md-12">    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h3 class="title"><img src="Images/checklist.png" width="30" height="35">Withdrawal Requests</h5>
+                </div>
+            </div>
+            <hr>
+            <div class="row" style="padding-left:20px;">
+                <h5 class="title"> Withdrawal after Enrolment Period </h3>
+
+            </div>
+            <div class="table-responsive-lg"> <!-- this is the code to make the table can scroll if screen too small-->
+                <table class= "table">
+                    <thead class="thead-light" >
+                      <tr>
+                        <th scope="col">Learner</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Course</th>
+                      
+                        <th scope="col">Enrol Start-End Date</th>
+                        <th scope="col">Course Start-End Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Instructor</th>
+                        <th scope="col">Reason</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="all_withdrawals">
+                        <td colspan="9" style="text-align: center;"><br><br><br><br><br> <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"> <span class="sr-only">Loading...</span> </div><br><br><br><br><br> </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="bg">
+        <img src="Images/lauren-mancke-aOC7TSLb1o8-unsplash.jpg" alt="">
+    </div>
+
+
+</body>
+<div id= "withdrawmodalarea">
+
+
+
+
+</div>
+
+<div id= "classappmodalarea">
+
+
+
+
+</div>
+<div id="success_msg" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="z-index: 99999 !important;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="padding:5px;background-color: rgb(212, 237, 218);text-align: center; vertical-align: middle;">
+            <div><span style="color:rgb(10, 82, 31);"><b>Success!</b></span> Your action was recorded successfully</div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+<script src="hrapprovalpage.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+    $('.dropdown-menu').click(function(event){
+      event.stopPropagation();
+  });
+ </script>
+</html>

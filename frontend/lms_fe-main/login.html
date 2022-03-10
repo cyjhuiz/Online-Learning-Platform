@@ -1,0 +1,283 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <title>Home Page</title>
+
+</head>
+
+<body style=" background-image: url('Images/5591276.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
+    <div class="container-fluid" style="text-align:center;padding-top:30px;">
+        <div class="row">
+            
+            <div class="col">
+                <h1 class="title" style="color:black;"><br><br>Welcome to All-in One LMS Portal</h4>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Main Body -->
+    <div id="page-wrap" style="text-align: center; width:60%; top:5%;">
+        <br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h3 class="title" style="color:C27500;">LOGIN</h4>
+                </div>
+            </div>
+        </div>
+        <br>
+       
+        <div class="container-fluid" >
+          
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-3">
+                    </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                    <div class="form-group row">
+                        <label for="section_title" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="email" placeholder="">
+                            </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="section_title" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-12">
+                                <input type="password" class="form-control" id="password" placeholder="">
+                            </div>
+                    </div>
+                
+                    <div class="form-group row">
+                        
+                    
+                            
+                        <label for="section_title" class="col-md-6 col-xs-5 col-form-label">Sign in As : </label>
+                    
+                        <div class="col-sm-2">
+                            <button class="btn btn-outline-secondary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false" id="buttondisplay" style="font-size:11.5px;">-- Please Select your role--</button>
+                            
+                            <div class="dropdown-menu" id="dropdown-menu-instructor">
+                                <a class="dropdown-item">
+                                    <!-- Default unchecked -->
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" onclick="check(this);" name="roleselect"  id="rolecheckbox1" value= "learner_Learner"> 
+                                        <label class="custom-control-label" id="labeltext"  for="rolecheckbox1">Learner</label>
+                                    </div>
+                                    </a>
+
+                                    <a class="dropdown-item">
+                                        <!-- Default unchecked -->
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" onclick="check(this);" name="roleselect"  id="rolecheckbox2" value= "trainer_Trainer"> 
+                                            <label class="custom-control-label" id="labeltext"  for="rolecheckbox2">Trainer</label>
+                                        </div>
+                                        </a>
+
+                                        <a class="dropdown-item">
+                                            <!-- Default unchecked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" onclick="check(this);" name="roleselect"  id="rolecheckbox3" value= "admin_HR Staff"> 
+                                                <label class="custom-control-label" id="labeltext"  for="rolecheckbox3">HR Staff</label>
+                                            </div>
+                                            </a>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        
+                       
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        <button type="button" class="btn btn-SUCCESS btn-block" onclick="validateLoginForm()">Login</button>
+                       
+        
+                        </div>
+                    </div>
+                   
+                      
+                </div>
+                <div class="form-group col-xs-12 col-sm-3">
+                </div>
+             
+                
+            </div>
+           
+        </div>
+    
+      
+    
+    </div>
+
+
+</body>
+<script>
+    
+  
+async function login(){
+   
+   email= document.getElementById("email").value
+   password = document.getElementById("password").value
+
+
+   var rolecheck = ""
+   var checkboxes = document.querySelectorAll('input[name="roleselect"]:checked')
+ 
+   for (var i = 0; i < checkboxes.length; i++) {
+  
+       rolecheck=(checkboxes[i].value.split("_")[0])
+     }
+   console.log(rolecheck)
+  
+   logindetail= {
+       email:email,
+       password:password
+   
+   }
+  
+
+    response = await fetch("https://user-container-7ii64z76zq-uc.a.run.app/user/login", {
+       method: "POST",
+       headers: {
+           'Access-Control-Allow-Origin': '*',  'Content-Type': 'application/json;charset=utf-8'
+       },
+    
+       body: JSON.stringify(logindetail)
+   });
+   
+    result = await response.json();
+   console.log(result);
+   if(result.code == 400) {
+       alert(result.message)
+   }
+   else{
+       
+       console.log(result.data.user_login_details)
+       email = result.data.user_login_details.email;
+       job_title = result.data.user_login_details.job_title;
+       username = result.data.user_login_details.name
+       roles = result.data.user_login_details.roles
+       user_ID = result.data.user_login_details.user_ID
+       //roles = ['trainer','admin' ]
+       //console.log(role)
+       //usercache = {"email":email,"job_title":job_title,"username": username,"role":role, "user_ID":user_ID};
+     //  console.log(email,job_title,username,role,user_ID)
+       localStorage.setItem("username", username);
+       localStorage.setItem("roles", JSON.stringify(roles));
+       localStorage.setItem("email", email);
+       localStorage.setItem("job_title", job_title);
+       localStorage.setItem("user_ID", user_ID);
+       console.log(localStorage.getItem("roles"));
+       allroles = JSON.parse(localStorage.getItem("roles"))
+       console.log(allroles)
+       for(var getrole in allroles){
+           if (rolecheck == "admin" && rolecheck == allroles[getrole] ) {
+               window.location.href = "hrmgncourse.html";
+               return;
+               }
+               if (rolecheck=="trainer" && rolecheck == allroles[getrole]) {
+                   window.location.href = "my_courses.html";
+                   return;
+               }
+               if (rolecheck=="learner" && rolecheck == allroles[getrole]){
+                   //direct to learner homepage
+                   window.location.href = "current_courses.html";
+                   return;
+               }
+       }
+       alert('Sorry, You do not have the access right for this role')
+       
+
+   }
+   }
+   
+
+function validateLoginForm() {
+   checkboxes = document.querySelectorAll('input[name="roleselect"]:checked')
+  
+   console.log(checkboxes)
+   if (document.getElementById("email").value == ""  | document.getElementById("password").value == ""  | checkboxes.length == 0 ) 
+
+   {
+     alert("Please fill up the empty fields if you want to login.");
+     return false;
+   }
+ 
+   else {
+      login();
+   }
+}
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+//Prep for assuming to capture userid to send to API
+
+
+
+//goes to next page base on button clicked
+function coursedetail(courseid){
+   //console.log(course_classid);
+   myArr = courseid.split("_")
+   //console.log(myArr)
+   //var courseid = myArr[0];
+   url = "file:///C:/Users/Wei%20Ping/Downloads/SPM/SPM%20Programming/Betsy%20Enterprise%20Application%20-%20G8T7/Project/hrclassdetail.html?courseid=" + myArr[0] + "&classid=" + myArr[1] + "&classname=" + myArr[2] + "&coursecode=" + myArr[3]
+   window.location.href = url;
+}
+
+
+
+function check(input)
+{
+  
+   var role =  input.value.split("_")[1];
+   console.log()
+   var checkboxes = document.getElementsByName("roleselect");
+  
+   for(var i = 0; i < checkboxes.length; i++)
+   {
+       //uncheck all
+       
+       if(checkboxes[i].checked == true)
+       {console.log(i)
+           checkboxes[i].checked = false;
+           document.getElementById("buttondisplay").innerText = "-- Please Select your role--";
+       }
+   }
+   
+   //set checked of clicked object
+   if(input.checked == true)
+   {
+       input.checked = false;
+       
+       document.getElementById("buttondisplay").innerText = "-- Please Select your role--";
+   }
+   else
+   {
+       input.checked = true;
+       document.getElementById("buttondisplay").innerText =  role;
+   }	
+}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>

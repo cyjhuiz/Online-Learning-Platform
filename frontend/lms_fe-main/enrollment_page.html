@@ -1,0 +1,302 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="navbar.js" async></script>
+    <title>View Course</title>
+
+
+</head>
+
+<body>
+   <!-- nav bar -->
+   <div id="page-wrap-nav">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <!-- company brand with a logo image -->
+        <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                <img src="Images/printer.png" width="50" height="50" alt="logo">
+        </a>
+                    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" >
+                <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown" id="lengthadmintrainer">
+                
+            </li>
+
+            <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                
+            </li>
+
+              
+              
+            </ul>
+     
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                  <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+               
+                </div>
+              </li>
+            </ul>
+
+        </div>
+        <!-- the rest of buttons -->
+    </nav> 
+</div>
+
+    <!-- Main Body -->
+    <div id="page-wrap">
+
+        <!-- Course Information -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h4 class="title" style="vertical-align: middle;"><img src="Images/open-book.png" width="50" height="50"> Course Information</h4>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                          <tr>
+                            <th  scope="row" style="width: 35%;">HR:</th>
+                            <td id="created_by">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Course Code</th>
+                            <td id="course_code">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Course Name</th>
+                            <td id="course_name">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Estimated Duration</th>
+                            <td id="est_duration">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" style="vertical-align: top;">Prerequisites</th>
+                            <td id="course_prerequisuites">Loading...</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                          <tr>
+                            <th scope="row" style="width: 35%; vertical-align: top;">Short Description</th>
+                            <td id="course_description">Loading...</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>     
+        </div>
+
+        <hr>
+
+        <!-- Class Information -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h4 class="title" style="vertical-align: middle;"><img src="Images/classroom.png" width="50" height="50"> Class Information</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                          <tr>
+                            <th scope="row" style="width: 35%">HR:</th>
+                            <td id="class_hr">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" style="width: 35%">Status</th>
+                            <td id="class_status">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" style="width: 35%">Class Name</th>
+                            <td id="class_name">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Class Size</th>
+                            <td id="class_size">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Enroll Start Date</th>
+                            <td id="enroll_class_start">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Enroll End Date</th>
+                            <td id="enroll_class_end">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Course Start Date/Time</th>
+                            <td id="class_start">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Course End Date/Time</th>
+                            <td id="class_end">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Assigned Trainer</th>
+                            <td id="class_assigned">Loading...</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>     
+        </div>
+
+        <hr>
+
+        <!-- Slots Information -->
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col">
+                  <h4 class="title" style="vertical-align: middle;">Slots Available</h4>
+              </div>
+          </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                          <tr>
+                            <th scope="row" style="width: 20.5%">Total Class Slots</th>
+                            <td id="class_slots">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" style="width: 20.5%">Confirmed and Taken</th>
+                            <td id="class_taken">Loading...</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" style="width: 20.5%">Slots Remaining</th>
+                            <td id="class_remain">Loading...</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="col-md-2">
+                  
+                </div>
+            </div>     
+        </div>
+
+        
+        <div class="container-fluid" >
+          <div  class="row">
+            <div class="col-md-10" id="determine_button_type">
+            <!--<button onclick="check_enroll_eligible()" type="button" data-toggle="tooltip" data-placement="top" title="Tooltip on top"class="btn btn-primary btn-sm 12" style="width:125px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Enroll for Course</button><br>-->
+            </div>
+          </div>
+        </div>
+        
+
+        
+     
+
+    </div>
+
+    <!--POP UP BOX-->
+    <!-- Enroll Modal -->
+    <div class="modal fade" id="pre_warning_enroll" tabindex="-1" role="dialog" aria-labelledby="pre_warning_enroll" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="pre_warning_enroll">Eligible for Enrollment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div  class="modal-body">
+                You are able to enroll to this class. Click on enroll to confirm.<br>1. Upon enrollment, the admin will have to approve before you are offically enrolled into the class.<br>2. You are allowed to withdraw anytime within the enrollment period but would require a reason after the enrollment period.<br>3. Once class is in progress, no withdrawals are allowed.
+            </div>
+            <div id="popup_section_id" class="modal-footer">
+           
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Withdrawl Modal -->
+    <div class="modal fade" id="pre_warning_with" tabindex="-1" role="dialog" aria-labelledby="pre_warning_with" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="pre_warning_with">Withdraw from Class</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div id="withdrawl_message" class="modal-body">
+                
+            </div>
+            <div id="popup_section_id2" class="modal-footer">
+            
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Fail modal -->
+    <div id="fail_msg" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding:5px;background-color: rgb(237, 212, 212);text-align: center; vertical-align: middle;">
+                <div><span style="color:rgb(82, 10, 10);"><b>Failed to Enroll.</b></span> The reasons are as follows:</div>
+                <div id="reasons_enroll_fail"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success modal -->
+    <div id="success_msg" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content" style="padding:5px;background-color: rgb(212, 237, 218);text-align: center; vertical-align: middle;">
+              <div><span style="color:rgb(10, 82, 31);"><b>Success!</b></span> Your action was recorded successfully</div>
+          </div>
+      </div>
+    </div>
+
+    <!--Background Image-->
+    <div id="bg">
+        <img src="Images/lauren-mancke-aOC7TSLb1o8-unsplash.jpg" alt="">
+    </div>
+
+</body>
+
+<script src="enrollmentpage.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>

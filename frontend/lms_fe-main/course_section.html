@@ -1,0 +1,272 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="navbar.js" async></script>
+    <title>View Course</title>
+
+</head>
+
+<body>
+   <!-- nav bar -->
+   <div id="page-wrap-nav">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <!-- company brand with a logo image -->
+        <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                <img src="Images/printer.png" width="50" height="50" alt="logo">
+        </a>
+                    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" >
+                    <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+                </li>
+                
+                <li class="nav-item dropdown" id="lengthadmintrainer">
+                    
+                </li>
+
+                <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                    
+                </li>
+
+              
+              
+            </ul>
+     
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                  <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+               
+                </div>
+              </li>
+            </ul>
+
+        </div>
+        <!-- the rest of buttons -->
+    </nav> 
+</div>
+
+    <!-- Main Body -->
+    <div id="page-wrap">
+
+        <!-- Title -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h4 class="title" style="vertical-align: middle;"><img src="Images/setting.png" width="50" height="50"><span id="fulldetails_name">  CAN001 - Cannon Printer Model XP001 Troubleshooting - G4 - Section 1</span></h4>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Section Information -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="title" style="vertical-align: middle;">Section Information</h5>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="container-fluid">
+            <div class="form-group row">
+                <label for="section_title" class="col-sm-2 col-form-label">Section Title</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="inputSectionTitle" placeholder="Enter Chapter/Section Title/Name..." value="Loading...">
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+            <!--For error message-->
+            <span id="error_msg" style="color:red;"><!--test<br><br>--></span>
+            <div id="update_section_btn">
+                <button type="button" class="btn btn-primary" style="margin-right: 5px; padding-left:25px; padding-right:25px;" onclick="update_section()">
+                    Update Section Information (If Required)
+                </button>
+                <br><br>
+            </div>
+
+        </div>
+
+        
+
+        <hr>
+
+        <!--Course Materials-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="title" style="vertical-align: middle;">Course Materials</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="table-responsive"> <!-- this is the code to make the table can scroll if screen too small-->
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Index No.</th>
+                        <th scope="col">Content Type</th>
+                        <th scope="col">File/Link<br>(Click to preview)</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="course_materials">
+                        <tr>
+                            <tr><td colspan="4" style="text-align: center;"><br><br><br><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span> </div><br><br><br></td></tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Button trigger modal -->
+            <div id="course_mat_btn">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcoursematerial">
+                    Add Course Material
+                </button>
+                <br><br>
+            </div>
+        </div>
+
+        <hr>
+
+        <!--Quiz Section-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="title" style="vertical-align: middle;">Section Quiz (Ungraded)</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid" id="determine_button_type">
+            
+        </div>
+
+
+
+        
+    </div>
+
+    <!--POP UP BOX-->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="pre_warning_delete" tabindex="-1" role="dialog" aria-labelledby="pre_warning_delete" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="pre_warning_delete">Deleting Section</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div  class="modal-body">
+                You are about to delete a section. If there are any quiz or materials uploaded, they will be lost.
+            </div>
+            <div id="popup_section_id" class="modal-footer">
+           
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Success modal -->
+    <div id="success_msg" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding:5px;background-color: rgb(212, 237, 218);text-align: center; vertical-align: middle;">
+                <div><span style="color:rgb(10, 82, 31);"><b>Success!</b></span> Your action was recorded successfully</div>
+            </div>
+        </div>
+    </div>
+
+    <!--Pop up Box for add Course Material-->
+    <!-- Modal -->
+    <div class="modal fade" id="addcoursematerial" tabindex="-1" role="dialog" aria-labelledby="addcoursemateriallabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addcoursematerial">Add Course Material</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group row">
+                        <label for="myCheck" class="col-sm-4 col-form-label">Select Upload Type:</label>
+                        <div class="col-sm-8">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="youtube_url_radio" onclick="youtube_call()" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                  HyperLink
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="upload_file_radio" onclick="upload_file_call()">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                  Upload File
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="radio_selected">
+                        <div class="form-group row">
+                            <label for="YoutubeURL" class="col-sm-4 col-form-label">Input HyperLink</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="inputURL" placeholder="Paste HyperLink here...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="uploadname" class="col-sm-4 col-form-label">Name: </label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="inputname" placeholder="Enter short description or name here">
+                        </div>
+                    </div>
+
+                    <span id="error_msg2" style="color:red;"><!--test<br><br>--></span>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="upload_file()">Start Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--Background Image-->
+    <div id="bg">
+        <img src="Images/lauren-mancke-aOC7TSLb1o8-unsplash.jpg" alt="">
+    </div>
+
+</body>
+
+
+
+
+<script src="coursesection.js" ></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</html>

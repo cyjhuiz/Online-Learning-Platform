@@ -1,0 +1,549 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="navbar.js" async></script>
+    <title>Create Quiz Page</title>
+	
+	<style>
+	input[type="radio"] {
+  margin-right: 10px;
+}
+</style>
+
+</head>
+
+<body style=" background-image: url('Images/5591276.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+	
+	  <div id="page-wrap-nav">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <!-- company brand with a logo image -->
+        <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                <img src="Images/printer.png" width="50" height="50" alt="logo">
+        </a>
+                    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" >
+                <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+            </li>
+            
+            <li class="nav-item dropdown" id="lengthadmintrainer">
+                
+            </li>
+
+            <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                
+            </li>
+
+              
+              
+            </ul>
+     
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  
+                </a>
+                <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                  <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+               
+                </div>
+              </li>
+            </ul>
+
+        </div>
+        <!-- the rest of buttons -->
+    </nav> 
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div id="page-wrap">
+
+	
+ 
+		<div class="container-fluid">	
+			<div class="row">
+				<div class="col">
+					 <h3 class="title">Quiz Creation Page</h1> <div id = "importquiz"> <button onclick="changelocation()" data-toggle="modal" data-target="#pre_warning_delete" type="button" class="btn btn-primary btn-sm 12" style="width:200px;margin-top: 5px; margin-bottom: 5px; padding-top: 7px; padding-bottom: 7px;">Import Quiz Questions</button> </div> <div id = "noquiz">  <h3 class="title">No past question found in course</h1></div>
+				</div>
+			</div>
+		</div>		
+		<hr>
+			<div class="form-group col-xs-12 col-sm-6">
+				<div class="form-group row">
+
+					 <label for="section_title" class="col-sm-4 col-form-label">Duration (in minutes): </label>
+					<div class="col-sm-5">
+						<input type="number" id="duration" class="form-control" name="duration"> 
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="section_title" class="col-sm-4 col-form-label">Total points (Auto calculated):</label>
+					<div class="col-sm-5">
+						<div id = "totalmarks"></div>
+					</div> <br>
+				</div>
+				
+			
+			</div>
+		
+	<hr>
+	
+    
+    <!-- Main Body -->
+	<div id = "container_questions"></div>
+	<div id = "container_main"></div>
+    <div class="form-group row">
+					
+					<div class="form-group col-xs-12 col-lg-4 col-sm-4 col-md-6 col-xl-4">
+					<div id = "button_change"><button type="button" class="btn btn-SUCCESS btn-block btn-sm" onclick="addquestions()">Save question</button></div>
+					<div style="margin: 7.5px">
+				    <button type="button" class="btn btn-SUCCESS btn-block" onclick="createquiz()">
+					 Create Quiz
+				    </button>
+					</div>
+				
+					</div>
+				</div>
+	
+
+	</div>
+</body>
+
+<script>
+var userid= localStorage.getItem('user_ID');
+var sub_url = window.location.href
+sub_url.indexOf("?")
+var course_class_section_id_url_back = sub_url.slice(sub_url.indexOf("?")+1)
+var myArr = course_class_section_id_url_back.split("_"); //myArr[0] = courseid, myArr[1] = classid, myArr[2] = sectionid
+var user_name= localStorage.getItem('username');
+document.getElementById("navbarDropdown1").innerText = user_name;
+
+
+if (myArr[3] == 0){
+	grade_type = "ungraded";
+
+} else {
+	grade_type = "graded";
+}
+
+number = 0;
+initial_correct = [];
+initial_point = [];
+correct_ans = [];
+points = 0;
+
+trainer_id = myArr[2];
+class_id = myArr[1];
+section_id = myArr[0];
+course_id = myArr[4];
+document.getElementById("importquiz").setAttribute("class", "d-none");
+
+function initial_quiz(){
+	var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+						if (request.readyState == 4 && request.status == 200) {
+									document.getElementById("importquiz").setAttribute("class", "d-block");
+									document.getElementById("noquiz").setAttribute("class", "d-none");
+								}
+							
+							} 						
+						
+				
+				var final_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz/quiz_question?course_ID=" + course_id;
+				request.open("GET", final_url, true);
+
+				request.send();
+	
+	
+}
+
+initial_quiz();
+
+function changelocation(){
+	 window.location.href = "import_quiz.html?section_id=" + section_id + "&class_id=" + class_id + "&trainer_id=" + trainer_id + "&course_id=" + course_id + "&grade_type=" + grade_type;
+}
+
+function addoptions_again(number){
+	count +=1;
+    document.getElementById("container" + number).innerHTML +='<div id = "optioncr' + number + count + '" class="input-group"><div class="form-check form-check-inline">' 
+															+ '<img src="Images/cross.png" width="40" height="30" id = "ptioncr'+ number + count + '"onclick = "delete_options(this.id)" style = "display: none;"><input class="radio-inline" type="radio" id="option' + count + 'number' + number +'" name="number' + number +'">' 
+															+ '<label for="option' + count + 'number' + number + '"></label>' 
+															+ '<div id = "divoption' + count + 'number' + number +'">' 
+															+ '<input class="form-control" type="text" id="option_answer' + count + 'number' + number +'" name="option_answer' + count + 'number' + number +'">' 
+															+ '</div></div></div><br><br>';
+	
+}
+
+function delete_options(divider){
+	divider = "o" + divider;
+	last_num = divider[divider.length-1];
+	document.getElementById(divider).remove();
+}
+
+function addoptions(number){
+	answer = document.getElementById("option_answer" + count + 'number' + number).value ;
+	radio_value = document.getElementById("option" + count + 'number' + number);
+	radio_value.value = answer;
+	if (answer == "") {
+		alert ("Please fill up your option");
+	}
+	else {
+	document.getElementById("ptioncr" + number + count).setAttribute("class", "d-block");
+	document.getElementById("divoption" + count + 'number' + number).innerHTML = answer;
+	count +=1;
+    document.getElementById("container" + number).innerHTML += '<div id = "optioncr' + number + count + '" class="input-group"><div class="form-check form-check-inline">' 
+															+ '<img src="Images/cross.png" width="40" height="30" id = "ptioncr'+ number + count + '"onclick = "delete_options(this.id)" style = "display: none;"><input class="radio-inline" class="form-check-input" type="radio" id="option' + count + 'number' + number +'" name="number' + number +'">' 
+															+ '<label for="option' + count + 'number' + number + '"></label>' 
+															+ '<div  id = "divoption' + count + 'number' + number +'">' 
+															+ '<input class="form-control" type="text" id="option_answer' + count + 'number' + number +'" name="option_answer' + count + 'number' + number +'">' 
+															+ '</div></div></div><br><br>';
+	}
+}
+
+function delete_question(divider){
+	if (number != 1) {
+		document.getElementById("div" + divider).remove();
+		ans_num = divider[divider.length - 1]
+		finding_value = initial_correct[ans_num-1];
+		remove_pos = correct_ans.indexOf(finding_value);
+		points = points - initial_point[remove_pos];
+		document.getElementById("totalmarks").innerHTML = points;
+		
+		
+	} else {
+	alert ("You cannot delete your first question");
+	}
+	
+}
+
+function addquestions_again(){
+	document.getElementById("button_change").innerHTML = '<div id = "button_change"><button type="button" class="btn btn-SUCCESS btn-block" onclick="addquestions()">Save question</button></div>';
+	count = 0;
+	number += 1;
+	document.getElementById('container_questions').innerHTML += document.getElementById('container_main').innerHTML;
+	document.getElementById('container_main').innerHTML = '<div id = "divider' + number + '" class="container-fluid">' +'<div class="row">' 
+															+ '<div class="col"></div></div>' 
+															+ '<hr><div class="form-group col-xs-12 col-sm-4" >' 
+															+ '<div class="form-group row"><label for="section_title" class="col-sm-4 col-form-label">Type:</label>' 
+															+ '<div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value)"' 
+															+ 'name="type_ques" id="type_ques"><option value = "1">MCQ</option>'
+															+ '<option value = "2">True/False</option></select></div></div>' 
+															+ '<div class="form-group row" id = "points' + number + 'grade"><label for="section_title" class="col-sm-4 col-form-label">Points:</label>'
+															+ '<div class="col-sm-8"> <input type="number" class="form-control" id="points'+ number + '" name="points'+ number + '"></div></div></div>'
+															+ '<label for="section_title" class="col-sm-6 col-form-label">Type your question below</label>'
+															+ '<hr><div class="form-group col-xs-12 col-sm-12"><div class="form-group row" id = "questionsprint' + number + '">'
+															+ '<div class="col-sm-12"><input type="text" class="form-control" id="questions' + number + '" placeholder=""></div></div></div><br>'
+															+ '<div class="form-group row" style="padding-left:30px;" id = "container' + number + '"></div>' 
+															+ ' <div class="form-group col-xs-12 col-lg-3 col-sm-3 col-md-5 col-xl-3"><div id = "button_option">'
+															+ '<button type="button" class="btn btn-SUCCESS btn-block" value = "'+ number + '" + onclick="addoptions(this.value)">Save option</button>' 
+															+ '<br><button type="button" class="btn btn-danger" id = "ider' + number + '" style = "display:none;" onclick = "delete_question(this.id)">Delete question</button></div></div></div><hr><br>';
+	addoptions_again(number);
+}
+
+function same_questions(){
+	count = 0;
+	document.getElementById('container_main').innerHTML = '<div id = "divider' + number + '" class="container-fluid">' 
+														+'<div class="row">' +  '<div class="col"></div></div>' 
+														+ '<hr><div class="form-group col-xs-12 col-sm-4">' 
+														+ '<div class="form-group row"><label for="section_title" class="col-sm-4 col-form-label">Type:</label>' 
+														+ '<div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value)"' 
+														+ 'name="type_ques" id="type_ques"><option value = "1">MCQ</option>' 
+														+'<option value = "2">True/False</option></select></div></div>'
+														+ '<div class="form-group row" id = "points' + number + 'grade"><label for="section_title" class="col-sm-4 col-form-label">Points:</label>' 
+														+ '<div class="col-sm-8"> <input type="number" class="form-control" id="points'+ number + '" name="points'+ number + '"></div></div></div>' 
+														+ '<label for="section_title" class="col-sm-6 col-form-label">Type your question below</label>'
+														+ '<hr><div class="form-group col-xs-12 col-sm-12"><div class="form-group row" id = "questionsprint' + number + '">'
+														+ '<div class="col-sm-12"><input type="text" class="form-control" id="questions' + number + '" placeholder=""></div></div></div><br>' 
+														+ '<div class="form-group row" style="padding-left:30px;" id = "container' + number + '"></div>' 
+														+ '<div class="form-group col-xs-12 col-lg-3 col-sm-3 col-md-5 col-xl-3"><div id = "button_option">' 
+														+ '<button type="button" class="btn btn-SUCCESS btn-block" value = "'+ number + '" + onclick="addoptions(this.value)">Save option</button>' 
+														+ '</div></div><button type="button" class="btn btn-danger" id = "ider' + number + '" style = "display:none;" onclick = "delete_question(this.id)">Delete question</button></div><hr><br>';
+	addoptions_again(number);
+}
+
+addquestions_again();
+
+
+function addquestions(){
+	addpoint = document.getElementById("points" + number).value;
+	qns = document.getElementById("questions" + number).value;
+	if (qns == "" || addpoint == ""){
+		alert("Please fill up your empty fields before you continue");
+	} else {
+	
+	var radio = document.getElementsByTagName('input');
+	for(var i = radio.length-1; i > 0; i--) {
+       if(radio[i].checked){
+           if (number > correct_ans.length) {
+				correct_ans.push(radio[i].value);
+				initial_correct.push(radio[i].value);
+				divider = "div" + radio[i].id;
+				document.getElementById(divider).innerHTML += '<img src="Images/confirm.png" width="20" height="20">' ;
+			} 
+		    break
+	   }
+    }
+	
+	if (initial_correct.length != number) {
+		alert ("Please select a option for the correct answer in your question above before you continue");
+	} else {
+	
+	image_none = document.getElementsByTagName("img");
+	for(var i = image_none.length-1; i > 0; i--) {
+		if (image_none[i].width != 20) {
+			image_none[i].setAttribute("class", "d-none");
+		}
+	}
+	
+	document.getElementById("ider" + number).setAttribute("class", "d-block");
+	
+	initial_point.push(addpoint);
+	document.getElementById("option" + count + 'number' + number).remove();
+	document.getElementById("option_answer" + count + 'number' + number).remove();
+	document.getElementById("points" + number + "grade").innerHTML = '<label for="section_title" class="col-sm-4 col-form-label">' 
+																   + 'Points: </label><div class="col-sm-8">  ' + addpoint + '</div>';
+	document.getElementById("questionsprint" + number).innerHTML =  qns;
+	points += parseInt(addpoint);
+	document.getElementById("totalmarks").innerHTML = points;
+	count = 0;
+	number += 1;
+	
+	document.getElementById('container_questions').innerHTML += document.getElementById('container_main').innerHTML;
+	document.getElementById('container_main').innerHTML = '<div id = "divider' + number + '"class="container-fluid">' 
+														+ '<div class="row">' +  '<div class="col"></div></div>' + '<hr><div class="form-group col-xs-12 col-sm-4">'
+														+ '<div class="form-group row" ><label for="section_title" class="col-sm-4 col-form-label">Type:</label>' 
+														+ '<div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value)" name="type_ques" id="type_ques">'
+														+ '<option value = "1">MCQ</option>'
+														+ '<option value = "2">True/False</option></select></div></div>'
+														+ '<div class="form-group row" id = "points' + number + 'grade">'
+														+ '<label for="section_title" class="col-sm-4 col-form-label">Points:</label><div class="col-sm-8"> ' 
+														+ '<input type="number" class="form-control" id="points'+ number + '" name="points'+ number + '"></div></div></div>' 
+														+ '<label for="section_title" class="col-sm-6 col-form-label">Type your question below</label>' 
+														+ '<hr><div class="form-group col-xs-12 col-sm-12"><div class="form-group row" id = "questionsprint' + number + '">'
+														+ '<div class="col-sm-12"><input type="text" class="form-control" id="questions' + number + '" placeholder=""></div></div></div><br>' 
+														+ '<div class="form-group row" style="padding-left:30px;" id = "container' + number + '"></div>' 
+														+ '<div class="form-group col-xs-12 col-lg-3 col-sm-3 col-md-5 col-xl-3"><div id = "button_option">' 
+														+ '<button type="button" class="btn btn-SUCCESS btn-block" value = "'+ number + '" + onclick="addoptions(this.value)">Save option</button>'
+														+ '</div></div><button type="button" class="btn btn-danger" id = "ider' + number + '" style = "display:none;" onclick = "delete_question(this.id)">Delete question</button></div><hr><br>';
+	addoptions_again(number);
+	}
+   }
+}
+
+function addquestions_last(){
+	
+	addpoint = document.getElementById("points" + number).value;
+	
+	qns = document.getElementById("questions" + number).value;
+	if (qns == "" || addpoint == ""){
+		alert("Please fill up your empty fields before you continue");
+	} else {
+	var radio = document.getElementsByTagName('input');
+	for(var i = radio.length-1; i > 0; i--) {
+       if(radio[i].checked){
+           if (number > correct_ans.length) {
+				correct_ans.push(radio[i].value);
+				initial_correct.push(radio[i].value);
+				divider = radio[i].id + "value";
+				document.getElementById(divider).innerHTML += '<img src="Images/confirm.png" width="20" height="20">' 
+			} 
+		    break
+	   }
+    }
+	if (initial_correct.length != number) {
+		alert ("Please select a option for the correct answer in your question above before you continue");
+	} else {
+	document.getElementById("ider" + number).setAttribute("class", "d-block");
+	initial_point.push(addpoint);
+	document.getElementById("questionsprint" + number).innerHTML = qns;
+	document.getElementById("points" + number + "grade").innerHTML = '<label for="section_title" class="col-sm-4 col-form-label">' 
+																   + 'Points: </label><div class="col-sm-8"> ' + addpoint + '</div>';
+	points += parseInt(addpoint);
+	document.getElementById("totalmarks").innerHTML = points;
+	count = 0;
+	number += 1;
+	document.getElementById("button_change").innerHTML = '<div id = "button_change"><button type="button" class="btn btn-SUCCESS btn-block" onclick="addquestions()">Save question</button></div>';
+	document.getElementById('container_questions').innerHTML += document.getElementById('container_main').innerHTML;
+	document.getElementById('container_main').innerHTML = '<div id = "divider' + number + '" class="container-fluid">' 
+														+ '<div class="row">' +  '<div class="col"></div></div>' 
+														+ '<hr><div class="form-group col-xs-12 col-sm-4">' 
+														+ '<div class="form-group row" ><label for="section_title" class="col-sm-4 col-form-label">Type:</label> ' 
+														+ '<div class="col-sm-8"><select style="text-align:center;" class="form-control" onchange="generateData(this.value)" name="type_ques" id="type_ques">' 
+														+ '<option value = "1">MCQ</option>' 
+														+ '<option value = "2">True/False</option></select></div></div>' 
+														+ '<div class="form-group row" id = "points' + number + 'grade">' 
+														+ '<label for="section_title" class="col-sm-4 col-form-label">Points: </label><div class="col-sm-8"> ' 
+														+ '<input type="number" class="form-control" id="points'+ number + '" name="points'+ number + '"></div></div></div>' 
+														+ '<label for="section_title" class="col-sm-6 col-form-label">Type your question below</label>' 
+														+ '<hr><div class="form-group col-xs-12 col-sm-12"><div class="form-group row" id = "questionsprint' + number + '">' 
+														+ '<div class="col-sm-12"><input type="text" class="form-control" id="questions' + number + '" placeholder=""></div></div></div><br>' 
+														+ '<div class="form-group row" style="padding-left:30px;" id = "container' + number + '"></div>' 
+														+ '<div class="form-group col-xs-12 col-lg-3 col-sm-3 col-md-5 col-xl-3"><div id = "button_option">' 
+														+ '<button type="button" class="btn btn-SUCCESS btn-block" value = "'+ number + '" + onclick="addoptions(this.value)">Save option</button>' 
+														+ '</div></div><button type="button" class="btn btn-danger" id = "ider' + number + '" style = "display:none;" onclick = "delete_question(this.id)">Delete question</button></div>	<hr><br>';
+	
+	addoptions_again(number);
+	 }
+	}
+}
+
+
+function generateData(menu) {
+  if (menu == '1') {
+    document.getElementById("container_main").innerHTML = "";
+	count = 0;
+	document.getElementById("button_change").innerHTML = '<div id = "button_change"><button type="button" class="btn btn-SUCCESS btn-block" onclick="addquestions()">Save question</button></div>';
+	same_questions();
+  } else if (menu == '2') {
+  document.getElementById("button_change").innerHTML = '<div id = "button_change"><button type="button" class="btn btn-SUCCESS btn-block" onclick="addquestions_last()">Save question</button></div>';
+  document.getElementById("container_main").innerHTML = "";
+  document.getElementById('container_main').innerHTML = '<div id = "divider' + number + '" class="container-fluid">' 
+													  +'<div class="row">' +  '<div class="col"></div></div>' 
+													  + '<hr><div class="form-group col-xs-12 col-sm-4">' 
+													  + '<div class="form-group row" ><label for="section_title" class="col-sm-4 col-form-label">Type:</label>' 
+													  + '<div class="col-sm-8"><select style="text-align:center;"  onchange="generateData(this.value)" name="type_ques" id="type_ques">' 
+													  + '<option value = "1">MCQ</option>' 
+													  + '<option value = "2" selected>True/False</option></select></div></div>' 
+													  + '<div class="form-group row" id = "points' + number + 'grade">' 
+													  + '<label for="section_title" class="col-sm-4 col-form-label">Points:</label>' 
+													  + '<input type="number" class="form-control" id="points'+ number + '" name="points'+ number + '"></div></div>' 
+													  + '<label for="section_title" class="col-sm-6 col-form-label">Type your question below</label>' 
+													  + '<hr><div class="form-group col-xs-12 col-sm-12"><div class="form-group row" id = "questionsprint' + number + '">' 
+													  + '<div class="col-sm-12"><input type="text" class="form-control" id="questions' + number + '"placeholder=""></div></div></div><br>'
+													  + '<div class="form-group col-xs-12 col-sm-10" id = "container' + number + '"><input type="radio" id="divoption1number' +
+													  number +
+													  '" name="number' +
+													  number +
+													  '" value = "True"><label for=divoption1number' +
+													  number +
+													  '"><div id="divoption1number' + number + 'value">True</div></label><br><input type="radio" id="divoption2number' +
+													  number +
+													  '" name="number' +
+													  number +
+													  '" value = "False"><label for=divoption2number' +
+													  number +
+													  '"><div id="divoption2number' + number + 'value">False</div></label><br><button type="button" class="btn btn-danger" id = "ider' + number + '" style = "display:none;" onclick = "delete_question(this.id)">Delete question</button></div><hr>';
+													  
+				
+   
+  } 
+  } 
+
+async function createquiz() {
+  if (confirm("Are you sure you want to create the quiz?")){
+  let duration = parseInt(document.getElementById("duration").value);
+  if (isNaN(duration) == true){
+	alert ("Please fill up the duration of the quiz");
+  } else {
+  let options_div = document.getElementById(`container${number}`);
+  let point = document.getElementById("points" + number).value;
+  let question = document.getElementById(`questionsprint${number}`);
+  let current_question_json = {
+    point: point,
+    question: question,
+    answer: correct_ans[number - 1],
+  };
+
+  for (element of options_div.getElementsByTagName("label")) {
+    if (element.children.length != 0 && element.innerText != "") {
+      let option_number = element.getAttribute("for").split(`number`)[0];
+
+      current_question_json[option_number] = element.innerText;
+    }
+  }
+
+  let question_divs = document.getElementById("container_questions");
+
+
+  let quiz_json = {
+    section_ID: section_id,
+    trainer_ID: trainer_id,
+    class_ID: class_id,
+    points: points,
+    duration: duration,
+    grading_type: grade_type,
+    quiz_questions: [],
+  };
+  console.log(quiz_json);
+  for (
+    question_number = 1;
+    question_number < number; // to minus away <br> and <hr> tag
+    question_number++
+  ) {
+	let questionExists = !!document.getElementById(`divider${question_number}`)
+	if (!questionExists) {
+		continue
+	}
+    let point = document.getElementById(`points${question_number}grade`).children[1].innerText;
+    let question = document.getElementById(
+      `questionsprint${question_number}`
+    ).innerText;
+
+    let current_question_json = {
+      point: parseInt(point),
+      question: question,
+      answer: correct_ans[question_number - 1],
+    };
+
+    let options_div = document.getElementById(`container${question_number}`);
+    for (element of options_div.getElementsByTagName("div")) {
+      if (element.innerText != "" && element.id.split(`number`)[0] != "") {
+        let option_number = "option" + element.id.split(`number`)[0].slice(-1,);
+
+        current_question_json[option_number] = element.innerText;
+      }
+    }
+    quiz_json.quiz_questions.push(current_question_json);
+  }
+  let quiz_url = "https://quiz-container-7ii64z76zq-uc.a.run.app/quiz";
+  let response = await fetch(quiz_url, {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json;charset=utf-8",
+    },
+
+    body: JSON.stringify(quiz_json),
+  });
+  response = await response.json();
+
+  if (response.code == 400) {
+    alert(response.message);
+  } else {
+    alert("Quiz successfully created!");
+	   if (grade_type == "graded"){
+			window.location.href = "view_course.html?courseid=" + course_id + "&classid=" + class_id;
+	   } else {
+			window.location.href = "course_section.html?" + course_id + "_" + class_id + "_" + section_id; 
+	   }
+	}
+  }
+  }	
+}
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>
