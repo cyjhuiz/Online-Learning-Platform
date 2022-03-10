@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="navbar.js" async></script>
+    <title>My Courses</title>
+
+</head>
+
+<body>
+     <!-- nav bar -->
+     <div id="page-wrap-nav">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <!-- company brand with a logo image -->
+            <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                    <img src="Images/printer.png" width="50" height="50" alt="logo">
+            </a>
+                        
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#" style="font-size:21px;">AIO LMS <span class="sr-only">(current)</span></a>
+                  </li>
+
+                  <li class="nav-item dropdown" id="lengthadmintrainer">
+                            
+                  </li>
+
+                  <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                      
+                  </li>
+                  
+                  
+                </ul>
+         
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                    <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      
+                    </a>
+                    <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                      <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+                   
+                    </div>
+                  </li>
+                </ul>
+
+            </div>
+            <!-- the rest of buttons -->
+        </nav> 
+    </div>
+
+
+    <!-- Main Body -->
+    <div id="page-wrap">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h4 class="title"><img src="Images/checklist.png" width="30" height="35"> My Attempted Courses</h4>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="title"> History of classes attended</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="table-responsive"> <!-- this is the code to make the table can scroll if screen too small-->
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Class</th>
+                        <th scope="col">Course</th>
+                        <th scope="col">Prerequisite</th>
+                        <th scope="col">Enroll<br>Start-End<br>Date</th>
+                        <th scope="col">Course<br>Start-End<br>Date/Time</th>
+                        <th scope="col">Attempt<br>Status</th>
+                        <th scope="col">Trainer</th>
+                        <th scope="col" style="vertical-align: middle;text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="my_courses">
+                        <tr>
+                            <td colspan="9" style="text-align: center;"><br><br><br><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span> </div><br><br><br></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="bg">
+        <img src="Images/lauren-mancke-aOC7TSLb1o8-unsplash.jpg" alt="">
+    </div>
+
+</body>
+
+
+<script src="attemptedcourses.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>

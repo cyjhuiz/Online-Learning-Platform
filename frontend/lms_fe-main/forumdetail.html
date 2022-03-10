@@ -1,0 +1,161 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">   
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="navbar.js" async></script>
+   
+    <title>All Courses</title>
+
+</head>
+
+<body>
+
+     <!-- nav bar -->
+     <div id="page-wrap-nav">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <!-- company brand with a logo image -->
+            <a class="navbar-brand" href="#" style="padding-left:10px; padding-right:10px;">
+                    <img src="Images/printer.png" width="50" height="50" alt="logo">
+            </a>
+                        
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div id= "navbarappend">
+
+                </div>
+                    <ul class="navbar-nav mr-auto" id='navbartarget' >
+                        <li class="nav-item active" >
+                            <a class="nav-link" href="#" style="font-size:20px;">AIO LMS <span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                        <li class="nav-item dropdown" id="lengthadmintrainer">
+                            
+                        </li>
+
+                        <li class="nav-item dropdown" id="lengthlearnertrainer" >
+                            
+                        </li>
+
+                        
+                        
+                    
+                    
+                    </ul>
+                
+                    
+                    <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <span style= "font-size:21px; display:inline-block;">Welcome, </span>
+                        <a class="nav-link dropdown-toggle" style="font-size:21px; display:inline-block;" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdown" style="left: auto !important; right: 0px;" >
+                        <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+                    
+                        </div>
+                    </li>
+                    </ul>
+
+            </div>
+            <!-- the rest of buttons -->
+        </nav> 
+    </div>
+
+
+    <div id="page-wrap">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="title" style="vertical-align: middle;" id="classforum"></h5>
+                </div>
+                <div class="col">
+                    <h4 class="title" style="float:right;" id="createpost"></h4>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="container-fluid" id ="trainersegment">
+
+            
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h4 class="title" style="color:black;" id="forumtitle"></h4>
+                </div>
+
+              
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="title" style="color:black;" id="createdby"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">    
+            <div class="container-fluid">
+                <div class="table-responsive-lg"> <!-- this is the code to make the table can scroll if screen too small-->
+                    <table class= "table" style="width:100%;">
+                        <thead class="thead-light" >
+                          <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Post</th>
+                          
+                           
+                          </tr>
+                        </thead>
+                        <tbody id="all_post">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <div id="bg">
+        <img src="Images/lauren-mancke-aOC7TSLb1o8-unsplash.jpg" alt="">
+    </div>
+
+
+</body>
+
+
+
+<div id="success_msg" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="z-index: 99999 !important;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="padding:5px;background-color: rgb(212, 237, 218);text-align: center; vertical-align: middle;">
+            <div><span style="color:rgb(10, 82, 31);"><b>Success!</b></span> Your action was recorded successfully</div>
+        </div>
+    </div>
+    </div>
+
+<div id = "modalareapost">
+    
+</div>
+
+<div id="deletepostmodal">
+
+</div>
+
+<div id="deletereplypostmodal">
+    
+</div>
+
+<script src="forumdetail.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</html>

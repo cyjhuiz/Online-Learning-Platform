@@ -1,0 +1,81 @@
+/*-------------------------Reactive Background-----------------------------*/
+#bg {
+position: fixed; 
+top: -50%; 
+left: -50%; 
+width: 200%; 
+height: 200%;
+}
+
+#bg img {
+position: absolute; 
+top: 0; 
+left: 0; 
+right: 0; 
+bottom: 0; 
+margin: auto; 
+min-width: 50%;
+min-height: 50%;
+}
+
+#page-wrap { 
+    position: relative;
+    z-index: 2;
+    width: 96%;
+    margin: 15px auto;
+    padding: 10px;
+    background: white;
+    -moz-box-shadow: 0 0 20px black;
+    -webkit-box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px black;
+}
+
+/*-------------------------Nav Bar Settings-----------------------------*/
+#page-wrap-nav { 
+    position: sticky;
+    z-index: 10 !important;
+    width: 100%;
+    margin: 0px auto;
+    background: white;
+    -moz-box-shadow: 0 0 20px black;
+    -webkit-box-shadow: 0 0 5px black;
+    box-shadow: 0 0 5px black;
+}
+
+/*-------------------------Page Layout and Content Settings-----------------------------*/
+
+/*All Titles - For size use H4,5,6 onwards*/
+.title {font: 20px; color:rgb(35,35,180)}
+
+/*general para*/
+p { font: 15px/2 Georgia, Serif; margin: 0 0 30px 0; text-indent: 40px; }
+
+/*Break line*/
+hr {
+    margin-top: 0.1rem;
+    margin-bottom: 0.7rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+/*Table Related*/
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.table > tbody > tr > th {
+    vertical-align: middle;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+
+@media only screen and (max-width: 1100px) { 
+    #labeltext {
+        white-space: pre-wrap; 
+    }
+}
+
+
